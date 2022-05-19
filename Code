@@ -1,0 +1,68 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+struct reader {
+    string surname;
+    string name;
+    int n_ticket;
+    int n_books;
+    int day;
+    int month;
+    int year;
+    int date = year * 10000 + month * 100 + day;
+};
+
+reader EnterStudent() {
+    reader name;
+    cout << "Enter surname and name:";
+    cin >> name.surname;
+    cin >> name.name;
+
+    cout << "Enter number ticker:";
+    cin >> name.n_ticket;
+
+    cout << "Enter number of book:";
+    cin >> name.n_books;
+
+    cout << "Enter DATE(--.--.----):" << endl;
+    cin >> name.day;
+    cin >> name.month;
+    cin >> name.year;
+    cout << endl;
+    return name;
+}
+
+reader PrintStudent(reader name) {
+    cout << name.surname << " " << name.name << endl;
+    cout << "(" << name.day << "." << name.month << "." << name.year << ")";
+    cout << endl;
+    cout << "Tricket # " << name.n_ticket << endl;
+    cout << "Book # " << name.n_books << endl << endl;
+    return name;
+}
+
+int main() {
+    const int n = 3;
+    reader student[n];
+
+    for (int i = 0; i < n; i++) {
+        student[i] = EnterStudent();
+    }
+    for (int i = 0; i < n; i++) {
+        student[i] = PrintStudent(student[i]);
+    }
+    
+    cout << "------------------------------------------" << endl;
+    int date_late = student[0].date;
+    int k = 0;
+    for (int i = 1; i < n; i++)
+    {
+        if (date_late < student[i].date) {
+            date_late = student[i].date;
+            k = i;
+        }
+    }
+    cout << student[k].surname << " " << student[k].name << endl << student[k].year;
+
+}
